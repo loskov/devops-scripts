@@ -3,12 +3,14 @@ cat >> ~/.bashrc <<EOF
 ## AWS token activation
 aws-enable-token() {
   export AWS_CURRENT=xxxx
+  export AWS_REGION=xx-xxxx-x
   export AWS_ACCESS_KEY=xxxxxxxxxxxxx
   export AWS_SECRET_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxx
 }
 
 aws-disable-token() {
   unset AWS_CURRENT
+  unset AWS_REGION
   unset AWS_ACCESS_KEY
   unset AWS_SECRET_KEY
 }
