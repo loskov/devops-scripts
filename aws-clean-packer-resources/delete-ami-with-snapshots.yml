@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - name: Get AMI ids from AWS
+      script: ami-get-old-images.groovy
+      register: amis
+    - name: Remove AMI
+      ec2_ami:
+        image_id: "{{ item }}"
+        delete_snapshot: True
+        state: absent
+      with_items: "{{ amis.stdout_lines }}"

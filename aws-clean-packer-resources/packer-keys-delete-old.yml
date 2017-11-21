@@ -1,0 +1,12 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - name: Get key ids from AWS
+      script: packer-keys-get-id-list.groovy
+      register: keys
+    - name: Remove Packer key pair
+      ec2_key:
+        name: "{{ item }}"
+        state: absent
+      with_items: "{{ keys.stdout_lines }}"
