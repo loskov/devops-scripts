@@ -1,0 +1,17 @@
+# Remove stopped containers (not always desirable)
+# containers=$(docker ps -a -q -f status=exited)
+# if [ `echo $containers | wc -w` -ne "0" ]; then
+#   docker rm $containers
+# fi
+
+# Remove volume leftovers
+volumes=$(docker volume ls -q -f dangling=true)
+if [ `echo $volumes | wc -w` -ne "0" ]; then
+  docker volume rm $volumes
+fi
+
+# Remove image leftovers
+images=$(docker images -q -f dangling=true)
+if [ `echo $images | wc -w` -ne "0" ]; then
+  docker rmi $images
+fi
